@@ -738,10 +738,13 @@ namespace Il2CppDumper
             {
                 var parentStructName = info.Parent + "_o";
                 pre.Append(RecursionStructInfo(structInfoWithStructName[parentStructName]));
-                sb.Append($"struct {info.TypeName}_Fields : {info.Parent}_Fields {{\n");
+                // C++ style
+                //sb.Append($"struct {info.TypeName}_Fields : {info.Parent}_Fields {{\n");
                 // C style
-                //sb.Append($"struct {info.TypeName}_Fields {{\n");
-                //sb.Append($"\t{info.Parent}_Fields _;\n");
+                sb.Append($"struct {info.TypeName}_Fields {{\n");
+                if (structInfoWithStructName[parentStructName].Fields.Count() != 0) {
+                    sb.Append($"\t{info.Parent}_Fields _;\n");
+                }
             }
             else
             {
